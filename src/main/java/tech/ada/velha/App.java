@@ -7,8 +7,30 @@ public class App {
 
     public static void main(String[] args) {
 
-        Tabuleiro t = new Tabuleiro(new String("X"), "O");
         final Scanner sc = new Scanner(System.in);
+        Tabuleiro t = null;
+        boolean jogoValido = false;
+        while(!jogoValido) {
+            System.out.println("Tipo de Jogo: ");
+            System.out.println("1 - Clássico");
+            System.out.println("2 - Customizado");
+            final String tipoJogo = sc.nextLine();
+            switch (tipoJogo) {
+                case "1" -> {
+                    t = new TabuleiroClassico();
+                    jogoValido = true;
+                }
+                case "2" -> {
+                    System.out.print("Insira a primeira peça: ");
+                    final String peca1 = sc.nextLine();
+                    System.out.println();
+                    System.out.print("Insira a segunda peça: ");
+                    final String peca2 = sc.nextLine();
+                    t = new Tabuleiro(peca1, peca2);
+                    jogoValido = true;
+                }
+            }
+        }
 
         boolean jogadaInvalida;
 

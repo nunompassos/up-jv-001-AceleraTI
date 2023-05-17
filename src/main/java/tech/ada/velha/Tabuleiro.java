@@ -223,4 +223,9 @@ public class Tabuleiro {
             }
         }
     }
+
+    @Override
+    public String toString() {
+        return "ola " + super.toString();
+    }
 }

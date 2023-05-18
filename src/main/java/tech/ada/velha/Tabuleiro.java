@@ -112,6 +112,10 @@ public class Tabuleiro {
     public boolean validaJogada(final String jogada) {
 
         final String[] jogadas = jogada.split(";");
+        if("".equals(pecaAntiga) && !peca1.equals(jogadas[0])) {
+            System.out.println("Peça não é válida!");
+            return false;
+        }
         if ((!peca1.equals(jogadas[0]) && !peca2.equals(jogadas[0])) || pecaAntiga.equals(jogadas[0])) {
             System.out.println("Peça não é válida!");
             return false;
@@ -129,51 +133,15 @@ public class Tabuleiro {
     private boolean validaPosicao() {
         boolean result = true;
         switch (posicaoAtual) {
-            case 1 -> {
-                if (!posicoes[0][0].equals("_")) {
-                    result = false;
-                }
-            }
-            case 2 -> {
-                if (!posicoes[0][1].equals("_")) {
-                    result = false;
-                }
-            }
-            case 3 -> {
-                if (!posicoes[0][2].equals("_")) {
-                    result = false;
-                }
-            }
-            case 4 -> {
-                if (!posicoes[1][0].equals("_")) {
-                    result = false;
-                }
-            }
-            case 5 -> {
-                if (!posicoes[1][1].equals("_")) {
-                    result = false;
-                }
-            }
-            case 6 -> {
-                if (!posicoes[1][2].equals("_")) {
-                    result = false;
-                }
-            }
-            case 7 -> {
-                if (!posicoes[2][0].equals(" ")) {
-                    result = false;
-                }
-            }
-            case 8 -> {
-                if (!posicoes[2][1].equals(" ")) {
-                    result = false;
-                }
-            }
-            case 9 -> {
-                if (!posicoes[2][2].equals(" ")) {
-                    result = false;
-                }
-            }
+            case 1 -> result = posicoes[0][0].equals("_");
+            case 2 -> result = posicoes[0][1].equals("_");
+            case 3 -> result = posicoes[0][2].equals("_");
+            case 4 -> result = posicoes[1][0].equals("_");
+            case 5 -> result = posicoes[1][1].equals("_");
+            case 6 -> result = posicoes[1][2].equals("_");
+            case 7 -> result = posicoes[2][0].equals(" ");
+            case 8 -> result = posicoes[2][1].equals(" ");
+            case 9 -> result = posicoes[2][2].equals(" ");
         }
         if (!result) {
             System.out.println("Posição não válida");

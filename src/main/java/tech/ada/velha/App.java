@@ -49,15 +49,15 @@ public class App {
 
     private void jogar() {
         t.imprimirTabuleiro();
-        do {
-            jogada();
+        for (int i = 1; !t.terminouJogo(); i++) {
+            jogada(i);
             t.imprimirTabuleiro();
-        } while (t.terminouJogo());
+        }
     }
 
-    private void jogada() {
+    private void jogada(int i) {
         boolean jogadaInvalida = true;
-        for (int i = 1; jogadaInvalida; i++) {
+        while (jogadaInvalida) {
             System.out.printf("Insira a sua peça e a posição - %s;2: ", i%2 == 0 ? t.getPeca2() : t.getPeca1());
             final String jogada = sc.nextLine();
             if (t.validaJogada(jogada)) {

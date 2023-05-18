@@ -6,9 +6,9 @@ public class Tabuleiro {
     private static final String BOARD_LINE = "_%s_|_%s_|_%s_\n";
     private static final String BOARD_END = " %s | %s | %s \n";
 
-    private String[][] posicoes = {{"_", "_", "_"}, {"_", "_", "_"}, {" ", " ", " "}};
-    private String peca1;
-    private String peca2;
+    final private String[][] posicoes = {{"_", "_", "_"}, {"_", "_", "_"}, {" ", " ", " "}};
+    final private String peca1;
+    final private String peca2;
 
     private String pecaAntiga = "";
     private String vencedor = "Empate";
@@ -38,7 +38,7 @@ public class Tabuleiro {
     }
 
     public boolean terminouJogo() {
-        boolean jogoTerminou = false;
+        boolean jogoTerminou;
 
         jogoTerminou = validarLinhas();
         if (jogoTerminou) {
@@ -54,10 +54,9 @@ public class Tabuleiro {
         }
 
         jogoTerminou = true;
-        String[] base = {"_", "_", " "};
-        for (int i = 0; i < posicoes.length; i++) {
-            for (int j = 0; j < posicoes[i].length; j++) {
-                if (!posicoes[i][j].equals(peca1) && !Objects.equals(posicoes[i][j], peca2)) {
+        for (String[] posicao : posicoes) {
+            for (String s : posicao) {
+                if (!s.equals(peca1) && !Objects.equals(s, peca2)) {
                     jogoTerminou = false;
                     break;
                 }
@@ -101,10 +100,6 @@ public class Tabuleiro {
         }
 
         return false;
-    }
-
-    public String[][] getPosicoes() {
-        return this.posicoes;
     }
 
     public String getVencedor() {
@@ -190,42 +185,15 @@ public class Tabuleiro {
     public void aplicarJogada() {
         pecaAntiga = pecaAtual;
         switch (posicaoAtual) {
-            case 1 -> {
-                posicoes[0][0] = pecaAtual;
-                break;
-            }
-            case 2 -> {
-                posicoes[0][1] = pecaAtual;
-                break;
-            }
-            case 3 -> {
-                posicoes[0][2] = pecaAtual;
-                break;
-            }
-            case 4 -> {
-                posicoes[1][0] = pecaAtual;
-                break;
-            }
-            case 5 -> {
-                posicoes[1][1] = pecaAtual;
-                break;
-            }
-            case 6 -> {
-                posicoes[1][2] = pecaAtual;
-                break;
-            }
-            case 7 -> {
-                posicoes[2][0] = pecaAtual;
-                break;
-            }
-            case 8 -> {
-                posicoes[2][1] = pecaAtual;
-                break;
-            }
-            case 9 -> {
-                posicoes[2][2] = pecaAtual;
-                break;
-            }
+            case 1 -> posicoes[0][0] = pecaAtual;
+            case 2 -> posicoes[0][1] = pecaAtual;
+            case 3 -> posicoes[0][2] = pecaAtual;
+            case 4 -> posicoes[1][0] = pecaAtual;
+            case 5 -> posicoes[1][1] = pecaAtual;
+            case 6 -> posicoes[1][2] = pecaAtual;
+            case 7 -> posicoes[2][0] = pecaAtual;
+            case 8 -> posicoes[2][1] = pecaAtual;
+            case 9 -> posicoes[2][2] = pecaAtual;
         }
     }
 

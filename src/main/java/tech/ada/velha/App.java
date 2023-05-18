@@ -1,58 +1,85 @@
 package tech.ada.velha;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class App {
 
+    private Tabuleiro t;
+    private final Scanner sc = new Scanner(System.in);
+
     public static void main(String[] args) {
 
-        final Scanner sc = new Scanner(System.in);
-        Tabuleiro t = null;
-        boolean jogoValido = false;
-        while(!jogoValido) {
-            System.out.println("Tipo de Jogo: ");
+        final App app = new App();
+        app.iniciar();
+
+    }
+
+    public void iniciar() {
+        boolean novoJogo;
+        do {
+            t = definirTabuleiro();
+            jogar();
+            System.out.println(t.getVencedor());
+            novoJogo = repetirJogo();
+        } while (novoJogo);
+    }
+
+    private Tabuleiro definirTabuleiro() {
+        while (true) {
+            System.out.println("Tipo de jogo:");
             System.out.println("1 - Clássico");
-            System.out.println("2 - Customizado");
-            final String tipoJogo = sc.nextLine();
-            switch (tipoJogo) {
+            System.out.println("2 - Personalizado");
+            System.out.print("Insira o tipo de tabuleiro: ");
+            final String tabuleiro = sc.nextLine();
+            switch (tabuleiro) {
                 case "1" -> {
-                    t = new TabuleiroClassico();
-                    jogoValido = true;
+                    return new TabuleiroClassico();
                 }
                 case "2" -> {
+                    final String p1, p2;
                     System.out.print("Insira a primeira peça: ");
-                    final String peca1 = sc.nextLine();
-                    System.out.println();
+                    p1 = sc.nextLine();
                     System.out.print("Insira a segunda peça: ");
-                    final String peca2 = sc.nextLine();
-                    t = new Tabuleiro(peca1, peca2);
-                    jogoValido = true;
+                    p2 = sc.nextLine();
+                    return new Tabuleiro(p1, p2);
                 }
             }
         }
+    }
 
-        boolean jogadaInvalida;
-
+    private void jogar() {
         t.imprimirTabuleiro();
         do {
-            do {
-                jogadaInvalida = false;
-                System.out.print("Insira a sua peça e a posição (X;4): ");
-                final String jogada = sc.next();
-                if (!t.validaJogada(jogada)) {
-                    jogadaInvalida = true;
-                    continue;
-                }
-                System.out.println("Jogada válida");
-                t.aplicarJogada();
-
-            } while (jogadaInvalida);
-
+            jogada();
             t.imprimirTabuleiro();
-        } while (!t.terminouJogo());
+        } while (t.terminouJogo());
+    }
 
-        System.out.println(t.getVencedor());
+    private void jogada() {
+        boolean jogadaInvalida = true;
+        for (int i = 1; jogadaInvalida; i++) {
+            System.out.printf("Insira a sua peça e a posição - %s;2: ", i%2 == 0 ? t.getPeca2() : t.getPeca1());
+            final String jogada = sc.nextLine();
+            if (t.validaJogada(jogada)) {
+                System.out.println("Jogada válida!");
+                t.aplicarJogada();
+                jogadaInvalida = false;
+            }
+        }
+    }
 
+    private boolean repetirJogo() {
+        while (true) {
+            System.out.print("Deseja repetir o jogo? (s/n): ");
+            final String res = sc.nextLine();
+            switch (res) {
+                case "s" -> {
+                    return true;
+                }
+                case "n" -> {
+                    return false;
+                }
+            }
+        }
     }
 }

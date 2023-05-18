@@ -15,12 +15,17 @@ public class Tabuleiro {
     private String pecaAtual = "";
     private int posicaoAtual = -1;
 
-    public Tabuleiro() {
-    }
-
     public Tabuleiro(String peca1, String peca2) {
         this.peca1 = peca1;
         this.peca2 = peca2;
+    }
+
+    public String getPeca1() {
+        return this.peca1;
+    }
+
+    public String getPeca2() {
+        return this.peca2;
     }
 
     public void imprimirTabuleiro() {
@@ -103,10 +108,10 @@ public class Tabuleiro {
     }
 
     public String getVencedor() {
-        if (this.vencedor.equals("Empate")) {
-            return "Jogo terminou empatado!";
+        if (this.vencedor.equals(this.peca1)) {
+            return "O jogador 1 venceu o jogo!";
         }
-        return "O vencedor utilizou a peça " + vencedor;
+        return this.vencedor.equals(this.peca2) ? "O jogador 2 venceu o jogo!" : "O jogo terminou empatado!";
     }
 
     public boolean validaJogada(final String jogada) {
